@@ -1,7 +1,8 @@
+import { PubSub } from "graphql-subscriptions";
 import { Resolver, Query, Mutation, Args, Subscription } from "@nestjs/graphql";
+
 import { PostsService } from "./posts.service";
 import { Post, NewPost, UpdatePost } from "src/graphql.schema";
-import { PubSub } from "graphql-subscriptions";
 
 const pubSub = new PubSub();
 
