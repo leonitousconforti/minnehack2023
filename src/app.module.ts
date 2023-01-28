@@ -1,5 +1,6 @@
 import { Module } from "@nestjs/common";
 import { GraphQLModule } from "@nestjs/graphql";
+import { AppController } from "./app.controller";
 import { PostsModule } from "./posts/posts.module";
 import { ApolloDriver, ApolloDriverConfig } from "@nestjs/apollo";
 
@@ -12,5 +13,6 @@ import { ApolloDriver, ApolloDriverConfig } from "@nestjs/apollo";
             installSubscriptionHandlers: true,
         }),
     ],
+    controllers: [AppController],
 })
 export class AppModule {}
