@@ -60,8 +60,9 @@ export class UsersController {
 
     @UseGuards(AuthenticatedGuard)
     @Get("/me")
-    getMe(@Req() request: Request) {
-        return request.user;
+    @Render("me")
+    getMe() {
+        return {};
     }
 
     @Get("/logout")

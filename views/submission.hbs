@@ -7,16 +7,15 @@
     <body>
         <div class="topnav">
             <a href="../">Home</a>
-            <a href="./login">Log In</a>
-            <a href="./register">Register</a>
+            <a href="./me">Profile</a>
         </div>
         <h3>Transcipt Submission:</h3>
         <form method="post">
             <label for="date"><b>Date</b></label>
             <input type="date" placeholder="Enter Date" name="date" max="2023-12-31" required />
             <br />
-            <label for="politician"><b>Politician(s)</b></label>
-            <input type="text" placeholder="Enter Name" name="politician" required />
+            <label for="politicians"><b>Politician(s)</b></label>
+            <input type="text" placeholder="Enter Name" name="politicians" required />
             <br />
             <label for="transcript"><b>Transcript</b></label>
             <br />
@@ -24,5 +23,6 @@
             <br /><br />
             <button type="submit">Submit</button>
         </form>
+        <p style="color: red"> {{error}} </p>
     </body>
 </html>

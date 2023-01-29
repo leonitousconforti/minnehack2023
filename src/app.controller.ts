@@ -1,10 +1,11 @@
-import { Controller, Get, Render } from "@nestjs/common";
+import { Controller, Get, Render, Req } from "@nestjs/common";
+import { Request } from "express";
 
 @Controller()
 export class AppController {
     @Get("/")
     @Render("index")
-    root() {
-        return {};
+    root(@Req() request: Request) {
+        return {loggedin: request.user != undefined};
     }
 }
