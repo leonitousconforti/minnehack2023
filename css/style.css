@@ -1,0 +1,12 @@
+@import url(https://fonts.googleapis.com/css?family=Source+Code+Pro:400,900);
+* {
+    margin: 0;
+    padding: 0;
+}
+body {
+    font-size: 100%;
+    font-family: "Source Code Pro", Arial, Helvetica, sans-serif;
+    line-height: 1.4;
+    padding: 50px;
+    background-color: #eaeaea;
+}
