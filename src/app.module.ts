@@ -3,11 +3,11 @@ import { GraphQLModule } from "@nestjs/graphql";
 import { ApolloDriver, ApolloDriverConfig } from "@nestjs/apollo";
 
 import { AppController } from "./app.controller";
-import { PostsModule } from "./posts/posts.module";
+import { UsersModule } from "./users/users.module";
 
 @Module({
     imports: [
-        PostsModule,
+        UsersModule,
         GraphQLModule.forRoot<ApolloDriverConfig>({
             driver: ApolloDriver,
             typePaths: ["./**/*.graphql"],

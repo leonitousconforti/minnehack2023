@@ -7,9 +7,8 @@ generator client {
     provider = "prisma-client-js"
 }
 
-model Post {
-    id          String  @id @default(uuid())
-    title       String
-    text        String
-    isPublished Boolean @default(false)
+model User {
+    id          String @id @default(uuid())
+    username    String @unique
+    password    String
 }
