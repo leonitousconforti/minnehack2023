@@ -15,6 +15,12 @@ export class TranscriptsController {
         private readonly politiciansService: PoliticiansService
     ) {}
 
+    @Get("/transcript")
+    @Render("transcript")
+    async renderTranscript(@Req() request: Request) {
+        return {transcript: "lorem ipsum", loggedin: request.user != undefined};
+    }
+
     @Get("/submission")
     @Render("submission")
     async renderUploadTranscript(@Req() request: Request, @Res() response: Response) {
