@@ -1,8 +1,12 @@
 import { User } from "@prisma/client";
 import { Injectable } from "@nestjs/common";
 
-import { UserRegistration } from "src/graphql.schema";
 import { PrismaService } from "../prisma/prisma.service";
+
+type UserRegistration = {
+    username: string;
+    password: string;
+};
 
 @Injectable()
 export class UsersService {
