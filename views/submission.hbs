@@ -10,17 +10,17 @@
             <a href="./register">Register</a>
         </div>
         <h3>Transcipt Submission:</h3>
-        <form action="action_page.php" method="post">
+        <form method="post">
             <label for="date"><b>Date</b></label>
             <input type="date" placeholder="Enter Date" name="date" max="2023-12-31" required />
-            <br> 
+            <br />
             <label for="politician"><b>Politician(s)</b></label>
-            <input type="text" placeholder="Enter Name" name="name" required />
-            <br> 
-            <label for="transcipt"><b>Transcript</b></label> 
-            <br> 
+            <input type="text" placeholder="Enter Name" name="politician" required />
+            <br />
+            <label for="transcript"><b>Transcript</b></label>
+            <br />
             <textarea name="transcript" rows="20" cols="50" placeholder="Enter Transcript" required></textarea>
-            <br><br>
+            <br /><br />
             <button type="submit">Submit</button>
         </form>
     </body>
