@@ -1,4 +1,3 @@
-import { User } from "@prisma/client";
 import { Response, Request } from "express";
 import { Controller, Get, Render, Req, Res } from "@nestjs/common";
 
@@ -10,7 +9,7 @@ export class PoliticiansController {
 
     @Get("/candidates")
     @Render("candidates")
-    async renderCandidates(@Req() request: Request, @Res() response: Response) {
+    async renderCandidates(@Req() request: Request) {
         return {loggedin: request.user != undefined};
     }
 
