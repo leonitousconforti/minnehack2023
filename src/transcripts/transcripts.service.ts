@@ -19,6 +19,33 @@ export class TranscriptsService {
     }
 
     async create(data: TranscriptCreate) {
-        return this.prisma.transcript.create({ data });
+        const transcriptEntity = await this.prisma.transcript.create({
+            data: {
+                TranscriptDate: data.TranscriptDate,
+                TranscriptText: data.TranscriptText,
+                User: {
+                    connect: {
+                        UserID: data.UserID,
+                    },
+                },
+            },
+        });
+
+        for (const politicianId of data.PoliticiansIDs) {
+            await this.prisma.politicianTranscript.create({
+                data: {
+                    Transcript: {
+                        connect: {
+                            TranscriptID: transcriptEntity.TranscriptID,
+                        },
+                    },
+                    Politician: {
+                        connect: {
+                            PoliticianID: politicianId,
+                        },
+                    },
+                },
+            });
+        }
     }
 }
