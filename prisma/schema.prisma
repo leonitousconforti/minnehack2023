@@ -13,6 +13,7 @@ model User {
   UserAddress  String       @unique
   UserPassword String
   Transcript   Transcript[]
+  Annotation   Annotation[]
 }
 
 model Politician {
@@ -66,7 +67,7 @@ model Annotation {
   TranscriptID  String
   StartIndex    Int
   Length        Int
-  User          User                   @relation(fields: [UserID], references: [UserID])
+  User          User             @relation(fields: [UserID], references: [UserID])
   AnnotationTag AnnotationTag[]
   UserID        String
 
