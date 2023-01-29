@@ -10,12 +10,39 @@ type TranscriptCreate = {
     PoliticiansIDs: string[];
 };
 
+type AnnotationCreate = {
+    TranscriptID: string;
+    UserID: string;
+    StartIndex: number;
+    Length: number;
+    tags: string[];
+};
+
 @Injectable()
 export class TranscriptsService {
     constructor(private prisma: PrismaService) {}
 
     async findOne(id: string): Promise<Transcript | undefined> {
         return this.prisma.transcript.findUnique({ where: { TranscriptID: id } });
+    }
+
+    async createAnnotationForTranscript(data: AnnotationCreate) {
+        return this.prisma.annotation.create({
+            data: {
+                StartIndex: data.StartIndex,
+                Length: data.Length,
+                User: {
+                    connect: {
+                        UserID: data.UserID,
+                    },
+                },
+                Transcript: {
+                    connect: {
+                        TranscriptID: data.TranscriptID,
+                    },
+                },
+            },
+        });
     }
 
     async create(data: TranscriptCreate) {

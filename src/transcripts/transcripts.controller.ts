@@ -18,7 +18,11 @@ export class TranscriptsController {
     @Get("/transcript")
     @Render("transcript")
     async renderTranscript(@Req() request: Request) {
-        return {transcript: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque semper fermentum velit, a blandit est dictum et. Nunc ut fermentum nisl, et rhoncus orci. Phasellus hendrerit, magna scelerisque tempor blandit, ante dui fringilla dolor, in fringilla purus lorem id risus. Nulla malesuada aliquet eros in accumsan. Mauris molestie enim leo. Duis vel ultrices felis, non euismod mauris. Cras dictum viverra nulla, sit amet luctus arcu ornare a. Donec condimentum commodo justo, sit amet mattis nulla suscipit nec. Sed pretium pretium tortor, id venenatis est lobortis ac. Morbi posuere venenatis diam, sit amet varius justo dictum id. In a eleifend neque. Praesent imperdiet urna leo, at maximus nisi egestas id. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Aliquam finibus turpis vel ex aliquet interdum. Donec euismod vitae nisl non scelerisque.", loggedin: request.user != undefined};
+        return {
+            transcript:
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque semper fermentum velit, a blandit est dictum et. Nunc ut fermentum nisl, et rhoncus orci. Phasellus hendrerit, magna scelerisque tempor blandit, ante dui fringilla dolor, in fringilla purus lorem id risus. Nulla malesuada aliquet eros in accumsan. Mauris molestie enim leo. Duis vel ultrices felis, non euismod mauris. Cras dictum viverra nulla, sit amet luctus arcu ornare a. Donec condimentum commodo justo, sit amet mattis nulla suscipit nec. Sed pretium pretium tortor, id venenatis est lobortis ac. Morbi posuere venenatis diam, sit amet varius justo dictum id. In a eleifend neque. Praesent imperdiet urna leo, at maximus nisi egestas id. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Aliquam finibus turpis vel ex aliquet interdum. Donec euismod vitae nisl non scelerisque.",
+            loggedin: request.user != undefined,
+        };
     }
 
     @Get("/submission")
@@ -37,6 +41,35 @@ export class TranscriptsController {
         }
 
         return { transcript: "not found :(" };
+    }
+
+    @UseGuards(AuthenticatedGuard)
+    @Post("/view-transcript/:id")
+    async submitAnnotation(
+        @Req() request: Request,
+        @Res() response: Response,
+        @Body("tag") tag: string,
+        @Body("speaker") speaker: string,
+        @Body("annotationText") annotationText: string
+    ) {
+        const transcriptEntity = await this.transcriptsService.findOne(request.params.id);
+        if (!transcriptEntity) {
+            return;
+        }
+
+        if (!transcriptEntity.TranscriptText.includes(annotationText)) {
+            return response.render(`/view-transcript/${request.params.id}`, { error: "Invalid annotation" });
+        }
+
+        const StartIndex = transcriptEntity.TranscriptText.indexOf(annotationText);
+
+        this.transcriptsService.createAnnotationForTranscript({
+            TranscriptID: transcriptEntity.TranscriptID,
+            UserID: (request.user as User).UserID,
+            tags: [tag],
+            StartIndex,
+            Length: annotationText.length,
+        });
     }
 
     @UseGuards(AuthenticatedGuard)
