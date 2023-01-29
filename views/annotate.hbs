@@ -1,0 +1,41 @@
+<html>
+
+    <style>
+        .column-left { float: left; width: 60%; padding-right: 100px } .column-right { float: left; width: 15%; }
+    </style>
+
+    <head>
+        <meta charset="utf-8" />
+        <title>Annotate</title>
+    </head>
+    <body>
+        <h2>Annotate</h2>
+
+        <div class="container">
+            <div class="column-left">{{transcript}}</div>
+            <div class="column-right">
+                <form>
+                    <textarea></textarea>
+
+                    <label for="speaker">Choose a speaker:</label>
+                    <select name="speaker" id="speaker">
+                        {{#each speakers}}
+                            <option value={{this}}>{{this}}</option>
+                        {{/each}}
+                    </select>
+
+                    <label for="label">Choose a label:</label>
+                    <select name="label" id="label">
+                        {{#each labels}}
+                            <option value={{this}}>{{this}}</option>
+                        {{/each}}
+                    </select>
+
+                    <input type="submit" value="Submit" />
+                </form>
+            </div>
+        </div>
+
+    </body>
+
+</html>
