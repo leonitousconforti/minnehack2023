@@ -10,7 +10,7 @@ generator client {
 model User {
   UserID       String       @id @unique @default(uuid())
   UserName     String       @unique
-  UserAddress  String
+  UserAddress  String       @unique
   UserPassword String
   Transcript   Transcript[]
 }
@@ -66,7 +66,9 @@ model Annotation {
   TranscriptID  String
   StartIndex    Int
   Length        Int
+  User          User                   @relation(fields: [UserID], references: [UserID])
   AnnotationTag AnnotationTag[]
+  UserID        String
 
   @@id([AnnotationID, TranscriptID])
 }

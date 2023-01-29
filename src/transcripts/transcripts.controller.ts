@@ -25,7 +25,7 @@ export class TranscriptsController {
     @Render("submission")
     async renderUploadTranscript(@Req() request: Request, @Res() response: Response) {
         if (!request.user) return response.redirect("/login");
-        return {loggedin: request.user != undefined};
+        return { loggedin: request.user != undefined };
     }
 
     @Get("/view-transcript/:id")
@@ -33,7 +33,7 @@ export class TranscriptsController {
     async renderViewTranscript(@Req() request: Request) {
         const transcript = await this.transcriptsService.findOne(request.params.id);
         if (transcript) {
-            return { transcript: "found!" };
+            return { transcript: transcript.TranscriptText };
         }
 
         return { transcript: "not found :(" };
@@ -45,23 +45,26 @@ export class TranscriptsController {
         @Req() request: Request,
         @Res() response: Response,
         @Body("date") date: string,
-        @Body("politicians") politicians: string[],
+        @Body("politicians") politician: string,
         @Body("transcript") transcript: string
     ) {
+        const politicians = politician.split(",").map((politician) => politician.trim());
+
         const politicianEntities = politicians.map(
             async (politician) => await this.politiciansService.findByName(politician)
         );
         const responses = await Promise.all(politicianEntities);
 
-        if (!responses.every((response) => response)) {
+        if (!responses.every((response2) => response2)) {
             return response.render("submission", { error: "Invalid politician names" });
         }
 
-        this.transcriptsService.create({
+        const transcriptEntity = await this.transcriptsService.create({
             UserID: (request.user as User).UserID,
             TranscriptDate: date,
             TranscriptText: transcript,
             PoliticiansIDs: responses.map((response) => response.PoliticianID),
         });
+        return response.redirect("/view-transcript/" + transcriptEntity.TranscriptID);
     }
 }

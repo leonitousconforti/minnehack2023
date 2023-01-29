@@ -47,5 +47,7 @@ export class TranscriptsService {
                 },
             });
         }
+
+        return transcriptEntity;
     }
 }
