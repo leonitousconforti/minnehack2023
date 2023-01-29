@@ -5,6 +5,6 @@ export class LoginController {
     @Get("/login")
     @Render("login")
     root() {
-        return { message: "Hello world!" };
+        return { message: "This doesn't work yet lol" };
     }
 }

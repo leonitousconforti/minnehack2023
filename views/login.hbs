@@ -1,21 +1,24 @@
 <html>
     <head>
         <meta charset="utf-8" />
-        <title>App</title>
+        <title>Log In</title>
     </head>
     <body>
         <div class="topnav">
-            <a href="../">home</a>
-            <a href="./login">login</a>
-            <a href="./register">register</a>
+            <a href="../">Home</a>
+            <a href="./candidates">Candidates</a> 
         </div>
-        <h3>login:</h3>
+        <h3>Log In:</h3>
         <form action="action_page.php" method="post">
             <label for="uname"><b>Username</b></label>
             <input type="text" placeholder="Enter Username" name="uname" required />
+            <br>
             <label for="psw"><b>Password</b></label>
             <input type="password" placeholder="Enter Password" name="psw" required />
+            <br><br>
             <button type="submit">Login</button>
+            <p style = "color: red"> {{message}} </p>
+            Don't have an account? <a href="./register">Register</a>
         </form>
     </body>
 </html>
