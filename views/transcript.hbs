@@ -1,6 +1,8 @@
 <html>
     <style>
-        .column-left { float: left; width: 60%; padding-right: 100px } .column-right { float: left; width: 15%; }
+        .column-left { float: left; width: 60%; padding-right: 100px } 
+        .column-right { float: left; width: 15%; }
+        .piechart {float: left; padding-top: 100px;}
     </style>
 
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
@@ -30,7 +32,9 @@
         </div>
         <h3> Title </h3>
         <div class="container">
-            <div class="column-left">{{transcript}} </div>
+            <div class="column-left">
+                {{transcript}} 
+            </div>
             <div class="column-right">
                 <form>
                     <label for="speaker">Choose a speaker:</label>
@@ -39,7 +43,7 @@
                             <option value={{this}}>{{this}}</option>
                         {{/each}}
                     </select>
-                    <br />
+                    <br>
                     <label for="tag">Choose a label/tab:</label>
                     <select name="tag" id="tag">
                         {{#each labels}}
@@ -55,12 +59,11 @@
                     ></textarea>
                     <input type="submit" value="Submit" />
                 </form>
-                <br />
-
-                <h3> Issues </h3>
-                <div id="piechart" style="width: 800px; height: 500px;"></div>
-
             </div>
+        </div>
+        <div class="piechart">
+            <h3> Issues </h3>
+            <div id="piechart" style="width: 800px; height: 500px;"></div>
         </div>
     </body>
 </html>
