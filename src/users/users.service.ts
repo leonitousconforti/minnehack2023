@@ -12,7 +12,7 @@ type UserRegistration = {
 export class UsersService {
     constructor(private prisma: PrismaService) {}
 
-    async findOne(username: string): Promise<User | null> {
+    async findOne(username: string): Promise<User | undefined> {
         return this.prisma.user.findUnique({
             where: {
                 username,
@@ -20,9 +20,9 @@ export class UsersService {
         });
     }
 
-    async create(input: UserRegistration): Promise<User> {
+    async create({ username, password }: UserRegistration): Promise<User> {
         return this.prisma.user.create({
-            data: input,
+            data: { username, password },
         });
     }
 }
