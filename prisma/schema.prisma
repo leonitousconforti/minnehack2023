@@ -1,82 +1,93 @@
 datasource db {
-    provider = "sqlite"
-    url      = "file:./dev.db"
+  provider = "sqlite"
+  url      = "file:./dev.db"
 }
 
 generator client {
-    provider = "prisma-client-js"
+  provider = "prisma-client-js"
 }
 
 model User {
-    UserID          String @id @default(uuid())
-    UserName        String @unique
-    UserAddress     String
-    UserPassword    String
+  UserID       String       @id @default(uuid())
+  UserName     String       @unique
+  UserAddress  String
+  UserPassword String
+  Transcript   Transcript[]
 }
 
 model Politician {
-    PoliticianID          String @id @default(uuid())
-    PoliticianName        String
-    PoliticianState       String
-    PoliticianOffice      String
-    PoliticianIncumbency  Boolean
-    PoliticianParty       String
-    PoliticianEmail       String
-    PoliticianAddress     String
-    PoliticianPhoneNumber String
-    PoliticianURL         String
+  PoliticianID          String                 @id @unique @default(uuid())
+  PoliticianName        String
+  PoliticianState       String
+  PoliticianOffice      String
+  PoliticianIncumbency  Boolean
+  PoliticianParty       String
+  PoliticianEmail       String
+  PoliticianAddress     String
+  PoliticianPhoneNumber String
+  PoliticianURL         String
+  Channel               Channel[]
+  PoliticianTranscript  PoliticianTranscript[]
+  AnnotationTag         AnnotationTag[]
 }
 
 model Channel {
-    ChannelType      String
-    ChannelLink      String
-    Politician       Politician @relation(fields: [PoliticianID], references: [id])
-    PoliticianID     String
-    @@id([ChannelType, PoliticianID])
+  ChannelType  String
+  ChannelLink  String
+  Politician   Politician @relation(fields: [PoliticianID], references: [PoliticianID])
+  PoliticianID String
+
+  @@id([ChannelType, PoliticianID])
 }
 
 model Transcript {
-    TranscriptID        String @id @default(uuid())
-    TranscriptDate      String
-    TranscriptText      String
-    User                User @relation(fields: [UserID], references: [id])
-    UserID              String
+  TranscriptID         String                 @id @unique @default(uuid())
+  TranscriptDate       String
+  TranscriptText       String
+  User                 User                   @relation(fields: [UserID], references: [UserID])
+  UserID               String
+  PoliticianTranscript PoliticianTranscript[]
+  Annotation           Annotation[]
+  AnnotationTag        AnnotationTag[]
 }
 
 model PoliticianTranscript {
-    Transcript          Transcript @relation(fields: [TranscriptID], references: [id])
-    TranscriptID        String 
-    Politician          Politician @relation(fields: [PoliticianID], references: [id])
-    PoliticianID        String 
-    @@id([TranscriptID, PoliticianID])
+  Transcript   Transcript @relation(fields: [TranscriptID], references: [TranscriptID])
+  TranscriptID String
+  Politician   Politician @relation(fields: [PoliticianID], references: [PoliticianID])
+  PoliticianID String
+
+  @@id([TranscriptID, PoliticianID])
 }
 
-model Annotation{
-    AnnotationID        String @default(uuid())
-    Transcript          Transcript @relation(fields: [TranscriptID], references: [id])
-    TranscriptID        String 
-    StartIndex          Int
-    Length              Int
-    @@id([AnnotationID, TranscriptID])
+model Annotation {
+  AnnotationID  String          @unique @default(uuid())
+  Transcript    Transcript      @relation(fields: [TranscriptID], references: [TranscriptID])
+  TranscriptID  String
+  StartIndex    Int
+  Length        Int
+  AnnotationTag AnnotationTag[]
+
+  @@id([AnnotationID, TranscriptID])
 }
 
-model Tag{
-    TagID               String @id @default(uuid())
-    TagName             String
-    TagColor            String
-    TagIcon             String
+model Tag {
+  TagID         String          @id @unique @default(uuid())
+  TagName       String
+  TagColor      String
+  TagIcon       String
+  AnnotationTag AnnotationTag[]
 }
 
 model AnnotationTag {
-    Annotation          Annotation @relation(fields: [AnnotationID], references: [id])
-    AnnotationID        String
-    Tag                 Tag @relation(fields: [TagID], references: [id])
-    TagID               String
-    Transcript          Transcript @relation(fields: [TranscriptID], references: [id])
-    TranscriptID        String 
-    Politician          Politician @relation(fields: [PoliticianID], references: [id])
-    PoliticianID        String 
-    @@id([AnnotationID, TagID, TranscriptID, PoliticianID])
-}
+  Annotation   Annotation @relation(fields: [AnnotationID], references: [AnnotationID])
+  AnnotationID String
+  Tag          Tag        @relation(fields: [TagID], references: [TagID])
+  TagID        String
+  Transcript   Transcript @relation(fields: [TranscriptID], references: [TranscriptID])
+  TranscriptID String
+  Politician   Politician @relation(fields: [PoliticianID], references: [PoliticianID])
+  PoliticianID String
 
-model 
+  @@id([AnnotationID, TagID, TranscriptID, PoliticianID])
+}
