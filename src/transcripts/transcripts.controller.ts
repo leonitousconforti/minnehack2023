@@ -19,7 +19,7 @@ export class TranscriptsController {
     @Render("submission")
     async renderUploadTranscript(@Req() request: Request, @Res() response: Response) {
         if (!request.user) return response.redirect("/login");
-        return {};
+        return {loggedin: request.user != undefined};
     }
 
     @Get("/view-transcript/:id")
