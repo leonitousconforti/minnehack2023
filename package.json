@@ -4,7 +4,6 @@
     "scripts": {
         "prebuild": "rimraf dist",
         "build": "nest build",
-        "generate:typings": "ts-node generate-typings.ts",
         "start": "nest start",
         "start:dev": "nest start --watch",
         "start:debug": "nest start --debug --watch",
@@ -12,19 +11,13 @@
         "lint": "eslint ."
     },
     "dependencies": {
-        "@nestjs/apollo": "^10.0.17",
         "@nestjs/common": "9.0.1",
         "@nestjs/core": "9.0.1",
-        "@nestjs/graphql": "10.0.18",
         "@nestjs/platform-express": "9.0.1",
         "@prisma/client": "4.9.0",
-        "apollo-server": "3.6.2",
-        "apollo-server-express": "3.6.2",
         "class-transformer": "0.5.1",
         "class-validator": "0.14.0",
         "express": "^4.18.2",
-        "graphql": "15.8.0",
-        "graphql-subscriptions": "2.0.0",
         "hbs": "^4.2.0",
         "reflect-metadata": "0.1.13",
         "rxjs": "7.5.5"
