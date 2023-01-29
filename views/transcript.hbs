@@ -2,6 +2,31 @@
     <style>
         .column-left { float: left; width: 60%; padding-right: 100px } .column-right { float: left; width: 15%; }
     </style>
+
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+    <script type="text/javascript">
+        google.charts.load('current', {'packages':['corechart']});
+        google.charts.setOnLoadCallback(drawChart);
+
+        function drawChart() {
+
+            var data = google.visualization.arrayToDataTable([
+                ['Issue', 'Percent'],
+                ['Undefined', 100],
+                ['Abortion', 50]
+            ]);
+
+            var options = {
+            title: ''
+            };
+
+            var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+
+            chart.draw(data, options);
+        }
+    </script>
+
     <head>
         <meta charset="utf-8" />
         <title>Transcript</title>
@@ -42,8 +67,10 @@
                     <input type="submit" value="Submit" />
                 </form>
                 <br>
+
                 <h3> Issues </h3>
-                <div class="piechart"></div>
+                <div id="piechart" style="width: 800px; height: 500px;"></div>
+
             </div>        
         </div>
     </body>
