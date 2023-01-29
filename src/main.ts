@@ -19,6 +19,7 @@ async function bootstrap() {
     app.use(passport.initialize());
     app.use(passport.session());
     app.useStaticAssets(path.join(__dirname, "..", "public"));
+    app.useStaticAssets(path.join(__dirname, "..", "css"));
     app.setBaseViewsDir(path.join(__dirname, "..", "views"));
     app.setViewEngine("hbs");
 
