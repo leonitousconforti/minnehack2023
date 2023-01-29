@@ -1,50 +1,69 @@
 <html>
     <style>
-        .column-left { float: left; width: 60%; padding-right: 100px } .column-right { float: left; width: 15%; }
+        .column-left { float: left; width: 60%; padding-right: 100px } 
+        .column-right { float: left; width: 15%; }
+        .piechart {float: left; padding-top: 100px;}
     </style>
+
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+    <script type="text/javascript">
+        google.charts.load('current', {'packages':['corechart']}); google.charts.setOnLoadCallback(drawChart); function
+        drawChart() { var data = google.visualization.arrayToDataTable([ ['Issue', 'Characters'], ['Undefined', 0],
+        ['Abortion', 50], ['Guns', 30], ['LGBT Rights', 50], ['Racial Justice', 25] ]); var options = { title: '' }; var
+        chart = new google.visualization.PieChart(document.getElementById('piechart')); chart.draw(data, options); }
+    </script>
+
     <head>
         <meta charset="utf-8" />
         <title>Transcript</title>
-        <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="style.css" />
     </head>
     <body>
         <div class="topnav">
             <a href="../">Home</a>
-            <a href="./candidates">Candidates</a> 
+            <a href="./candidates">Candidates</a>
             {{#if loggedin}}
-            <a href="./me">Profile</a>
+                <a href="./me">Profile</a>
             {{else}}
-            <a href="./login">Log In</a>
-            <a href="./register">Register</a>
+                <a href="./login">Log In</a>
+                <a href="./register">Register</a>
             {{/if}}
         </div>
         <h3> Title </h3>
         <div class="container">
-            <div class="column-left">{{transcript}} </div>
+            <div class="column-left">
+                {{transcript}} 
+            </div>
             <div class="column-right">
                 <form>
-                    <textarea></textarea>
-
                     <label for="speaker">Choose a speaker:</label>
                     <select name="speaker" id="speaker">
                         {{#each speakers}}
                             <option value={{this}}>{{this}}</option>
                         {{/each}}
                     </select>
-
-                    <label for="label">Choose a label:</label>
-                    <select name="label" id="label">
+                    <br>
+                    <label for="tag">Choose a label/tab:</label>
+                    <select name="tag" id="tag">
                         {{#each labels}}
                             <option value={{this}}>{{this}}</option>
                         {{/each}}
                     </select>
-
+                    <textarea
+                        name="annotationText"
+                        rows="20"
+                        cols="50"
+                        placeholder="Enter annotation"
+                        required
+                    ></textarea>
                     <input type="submit" value="Submit" />
                 </form>
-                <br>
-                <h3> Issues </h3>
-                <div class="piechart"></div>
-            </div>        
+            </div>
+        </div>
+        <div class="piechart">
+            <h3> Issues </h3>
+            <div id="piechart" style="width: 800px; height: 500px;"></div>
         </div>
     </body>
 </html>
