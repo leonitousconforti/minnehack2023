@@ -1,8 +1,8 @@
 import { Module } from "@nestjs/common";
 
-import { AppController } from "./app.controller";
+import { IndexModule } from "./pages/index/index.module";
+import { LoginModule } from "./pages/login/login.module";
+import { RegisterModule } from "./pages/register/register.module";
 
-@Module({
-    controllers: [AppController],
-})
+@Module({ imports: [IndexModule, LoginModule, RegisterModule] })
 export class AppModule {}
