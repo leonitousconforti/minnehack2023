@@ -4,4 +4,4 @@
 2. `yarn prisma db push`
 3. `yarn run start:dev`
 
-http://localhost:3000/graphql
+http://localhost:3000/
